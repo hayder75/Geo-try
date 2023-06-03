@@ -7,6 +7,13 @@ var map = new L.Map('map', {
   'zoom': 14,
   'layers': [tileLayer]
 });
+
+var start = document.getElementById("icon");
+
+start.addEventListener('click',e => {
+    alert("started")
+})
+
 /*
 var marker;
 var circle;
@@ -30,7 +37,7 @@ map.locate({setView: true, maxZoom: 16});
 function onLocationFound(e) {
     var radius = e.accuracy;
     map.locate({watch : true})
-    L.marker(e.latlng).addTo(map)
+   
         .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
 
     L.circle(e.latlng, radius).addTo(map);
