@@ -10,7 +10,7 @@ var map = new L.Map('map', {
 
 var marker;
 var circle;
-
+/*
 map.on('click', function (e) {
   if (marker || circle) {
     map.removeLayer(marker);
@@ -21,9 +21,10 @@ map.on('click', function (e) {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
-    radius: 500 //
+    radius: 50 //
 }).addTo(map);
 });
+*/
 
 map.locate({setView: true, maxZoom: 16});
 
