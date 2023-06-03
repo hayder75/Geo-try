@@ -7,7 +7,7 @@ var map = new L.Map('map', {
   'zoom': 14,
   'layers': [tileLayer]
 });
-
+/*
 var marker;
 var circle;
 
@@ -24,7 +24,7 @@ map.on('click', function (e) {
     radius: 50 //
 }).addTo(map);
 });
-
+*/
 map.locate({setView: true, maxZoom: 16});
 
 function onLocationFound(e) {
