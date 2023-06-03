@@ -29,7 +29,7 @@ map.locate({setView: true, maxZoom: 16});
 
 function onLocationFound(e) {
     var radius = e.accuracy;
-
+    map.locate({watch : true})
     L.marker(e.latlng).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
 
@@ -43,3 +43,4 @@ function onLocationError(e) {
 }
 
 map.on('locationerror', onLocationError);
+
