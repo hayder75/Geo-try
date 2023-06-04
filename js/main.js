@@ -7,19 +7,31 @@ var map = new L.Map('map', {
   'zoom': 14,
   'layers': [tileLayer]
 });
-
+var marker;
+var circle;
 var start = document.getElementById("icon");
+var currentAddres ;
+var point ;
+map.on('click', function (e) {
+    if (marker) {
+      map.removeLayer(marker);
+    }
+    marker = new L.Marker(e.latlng).addTo(map);
+    point=e.latlng;
+    // console.log(point.lat,point.lng)
+  });
 
-start.addEventListener('click',e => {
+
+start.addEventListener('click', e => {
     map.locate({setView: true, maxZoom: 16});
 
     function onLocationFound(e) {
         var radius = e.accuracy;
+        L.Marker(e.latlng).addTo(map)
         L.circle(e.latlng, radius).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
         
-       var initial = e.latlng;
-        start.innerHTML(initial)
+        currentAddres = e.latlng;
     }
     
     map.on('locationfound', onLocationFound);
@@ -33,22 +45,22 @@ start.addEventListener('click',e => {
     
 })
 
-/*
-var marker;
-var circle;
 
-map.on('click', function (e) {
-  if (marker || circle) {
-    map.removeLayer(marker);
-    map.removeLayer(circle);
-  }
-  marker = new L.Marker(e.latlng).addTo(map);
-  circle = new L.circle((e.latlng), {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 50 //
-}).addTo(map);
-});
+
+/*
+
+function createMarker (){
+    var markerFrom = L.circleMarker([28.6100,77.2300], { color: "#F00", radius: 10 });
+    var markerTo =  L.circleMarker([18.9750,72.8258], { color: "#4AFF00", radius: 10 });
+    var from = markerFrom.getLatLng();
+    var to = markerTo.getLatLng();
+    markerFrom.bindPopup('Delhi ' + (from).toString());
+    markerTo.bindPopup('Mumbai ' + (to).toString());
+    map.addLayer(markerTo);
+    map.addLayer(markerFrom);
+    getDistance(from, to);
+}
+////////////////////////////////////////////////////
+
 */
 
