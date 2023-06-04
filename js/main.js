@@ -19,7 +19,7 @@ start.addEventListener('click', e => {
 
     function onLocationFound(e) {
         var radius = e.accuracy;
-        L.Marker(e.latlng).addTo(map)
+        
         L.circle(e.latlng, radius).addTo(map)
         .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
         
