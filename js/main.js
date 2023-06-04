@@ -11,7 +11,26 @@ var map = new L.Map('map', {
 var start = document.getElementById("icon");
 
 start.addEventListener('click',e => {
-    alert("started")
+    map.locate({setView: true, maxZoom: 16});
+
+    function onLocationFound(e) {
+        var radius = e.accuracy;
+        L.circle(e.latlng, radius).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
+        
+       var initial = e.latlng;
+        start.innerHTML(initial)
+    }
+    
+    map.on('locationfound', onLocationFound);
+    
+    function onLocationError(e) {
+        alert(e.message);
+    }
+    
+    map.on('locationerror', onLocationError);
+    
+    
 })
 
 /*
@@ -32,21 +51,4 @@ map.on('click', function (e) {
 }).addTo(map);
 });
 */
-map.locate({setView: true, maxZoom: 16});
-
-function onLocationFound(e) {
-    var radius = e.accuracy;
-    L.circle(e.latlng, radius).addTo(map)
-    .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
-
-   
-}
-
-map.on('locationfound', onLocationFound);
-
-function onLocationError(e) {
-    alert(e.message);
-}
-
-map.on('locationerror', onLocationError);
 

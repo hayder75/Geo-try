@@ -4,3 +4,13 @@ html, body, #map {
     height: 100%;
     padding: 0px;
   }
+  .whole{
+    display:flex ;
+    justify-content: center;
+    align-self: center;
+    gap: 10px;
+
+  }
+#icon{
+padding-top: 5px;
+}
