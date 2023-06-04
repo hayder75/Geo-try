@@ -7,21 +7,22 @@ var map = new L.Map('map', {
   'zoom': 14,
   'layers': [tileLayer]
 });
-var marker;
+var markers;
 var circle;
 var start = document.getElementById("icon");
 var currentAddres ;
 var point ;
+/*
 map.on('click', function (e) {
-    if (marker) {
-      map.removeLayer(marker);
+    if (markers) {
+      map.removeLayer(markers);
     }
-    marker = new L.Marker(e.latlng).addTo(map);
+    markers = new L.Marker(e.latlng).addTo(map);
     point=e.latlng;
     // console.log(point.lat,point.lng)
   });
 
-
+*/
 start.addEventListener('click', e => {
     map.locate({setView: true, maxZoom: 16});
 
