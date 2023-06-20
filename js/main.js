@@ -1,58 +1,29 @@
-var tileLayer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  'attribution': 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+mapboxgl.accessToken = 'pk.eyJ1Ijoia2lkdXNtYXBib3giLCJhIjoiY2xpc285NTAxMTV2NTNsbnEzNXp1bzFtZSJ9.YRAwdGNkD1SyyztBVMpqiw';
+    const map = new mapboxgl.Map({
+      container: 'map', // Container ID
+      style: 'mapbox://styles/mapbox/streets-v12', // Map style to use
+      center: [ 38.968016 , 8.750834], // Starting position [lng, lat]
+      zoom: 17, // Starting zoom level
+    });
+
+    const marker = new mapboxgl.Marker() // initialize a new marker
+  .setLngLat([38.968016 , 8.750834]) // Marker [lng, lat] coordinates
+  .addTo(map); // Add the marker to the map
+
+
+
+const geocoder = new MapboxGeocoder({
+// Initialize the geocoder
+accessToken: mapboxgl.accessToken, // Set the access token
+mapboxgl: mapboxgl, // Set the mapbox-gl instance
+marker: false, // Do not use the default marker style
+placeholder: 'Search for places in Debrezeyt', // Placeholder text for the search bar
+bbox: [ 38.957277, 8.750413 , 38.968734 , 8.751693], // Boundary for Berkeley
+proximity: {
+longitude:38.967128,
+latitude: 8.750972
+} // Coordinates of UC Berkeley
 });
-
-var map = new L.Map('map', {
-  'center':[8.757976, 38.932249],
-  'zoom': 14,
-  'layers': [tileLayer]
-});
-var marker;
-var circle;
-var start = document.getElementById("icon");
-var currentAddres ;
-var point ;
-
-
-start.addEventListener('click', e => {
-    map.locate({setView: true, maxZoom: 16});
-
-    function onLocationFound(e) {
-        var radius = e.accuracy;
-        
-        L.circle(e.latlng, radius).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point" + e.latlng ).openPopup();
-        
-        currentAddres = e.latlng;
-    }
-    
-    map.on('locationfound', onLocationFound);
-    
-    function onLocationError(e) {
-        alert(e.message);
-    }
-    
-    map.on('locationerror', onLocationError);
-    
-    
-})
-
-
-console.log(point)
-/*
-
-function createMarker (){
-    var markerFrom = L.circleMarker([28.6100,77.2300], { color: "#F00", radius: 10 });
-    var markerTo =  L.circleMarker([18.9750,72.8258], { color: "#4AFF00", radius: 10 });
-    var from = markerFrom.getLatLng();
-    var to = markerTo.getLatLng();
-    markerFrom.bindPopup('Delhi ' + (from).toString());
-    markerTo.bindPopup('Mumbai ' + (to).toString());
-    map.addLayer(markerTo);
-    map.addLayer(markerFrom);
-    getDistance(from, to);
-}
-////////////////////////////////////////////////////
-
-*/
-
+ 
+// Add the geocoder to the map
+map.addControl(geocoder);
